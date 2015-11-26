@@ -60,6 +60,20 @@ public class SimpleChatServerHandler extends
 	// }
 
 	@Override
+	protected void messageReceived(ChannelHandlerContext ctx, String msg)
+			throws Exception {// (4)
+		Channel incoming = ctx.channel();
+		for (Channel channel : channels) {
+			if (channel != incoming) {
+				channel.writeAndFlush("[" + incoming.remoteAddress() + "]"
+						+ msg + "\n");
+			} else {
+				channel.writeAndFlush("[you]" + msg + "\n");
+			}
+		}
+	}
+
+	@Override
 	public void channelActive(ChannelHandlerContext ctx) throws Exception { // (5)
 		Channel incoming = ctx.channel();
 		System.out.println("SimpleChatClient:" + incoming.remoteAddress()
@@ -83,17 +97,4 @@ public class SimpleChatServerHandler extends
 		ctx.close();
 	}
 
-	@Override
-	protected void messageReceived(ChannelHandlerContext ctx, String msg)
-			throws Exception {
-		Channel incoming = ctx.channel();
-		for (Channel channel : channels) {
-			if (channel != incoming) {
-				channel.writeAndFlush("[" + incoming.remoteAddress() + "]"
-						+ msg + "\n");
-			} else {
-				channel.writeAndFlush("[you]" + msg + "\n");
-			}
-		}
-	}
 }

@@ -54,6 +54,10 @@ public class DiscardServer {
 		} else {
 			port = 8080;
 		}
-		new DiscardServer(port);
+		try {
+			new DiscardServer(port).run();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 }

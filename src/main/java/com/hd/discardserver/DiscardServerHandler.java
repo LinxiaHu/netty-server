@@ -19,6 +19,7 @@ public class DiscardServerHandler extends ChannelHandlerAdapter implements
 				System.out.flush();
 			}
 		} finally {
+			//必须显示地调用
 			ReferenceCountUtil.release(msg);
 		}
 	}

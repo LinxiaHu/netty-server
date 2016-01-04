@@ -1,6 +1,5 @@
 package com.hd.netty.simplechat;
 
-
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelPipeline;
 import io.netty.channel.socket.SocketChannel;
@@ -17,14 +16,15 @@ public class SimpleChatServerInitializer extends
 		ChannelInitializer<SocketChannel> {
 
 	@Override
-    public void initChannel(SocketChannel ch) throws Exception {
-		 ChannelPipeline pipeline = ch.pipeline();
+	public void initChannel(SocketChannel ch) throws Exception {
+		ChannelPipeline pipeline = ch.pipeline();
 
-        pipeline.addLast("framer", new DelimiterBasedFrameDecoder(8192, Delimiters.lineDelimiter()));
-        pipeline.addLast("decoder", new StringDecoder());
-        pipeline.addLast("encoder", new StringEncoder());
-        pipeline.addLast("handler", new SimpleChatServerHandler());
- 
-		System.out.println("SimpleChatClient:"+ch.remoteAddress() +"连接上");
-    }
+		pipeline.addLast("framer", new DelimiterBasedFrameDecoder(8192,
+				Delimiters.lineDelimiter()));
+		pipeline.addLast("decoder", new StringDecoder());
+		pipeline.addLast("encoder", new StringEncoder());
+		pipeline.addLast("handler", new SimpleChatServerHandler());
+
+		System.out.println("SimpleChatClient:" + ch.remoteAddress() + "连接上");
+	}
 }

@@ -28,6 +28,7 @@ public class NettyClientHandler extends ChannelHandlerAdapter {
 		String rev = getMessage(buf);
 		System.out.println("客户端收到服务器数据:" + rev);
 	}
+	
 
 	private String getMessage(ByteBuf buf) {
 		byte[] con = new byte[buf.readableBytes()];
